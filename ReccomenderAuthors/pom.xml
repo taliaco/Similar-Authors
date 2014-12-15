@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.springframework.samples.spring</groupId>
+	<artifactId>spring-utility</artifactId>
+	<version>1.0.0.CI-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Spring Utility</name>
+	<url>http://www.springframework.org</url>
+	<description>
+		<![CDATA[
+      This project is a minimal jar utility with Spring configuration.
+    ]]>
+	</description>
+	<properties>
+		<maven.test.failure.ignore>true</maven.test.failure.ignore>
+		<spring.framework.version>3.0.6.RELEASE</spring.framework.version>
+		<aspectj.version>1.7.4</aspectj.version>
+		<slf4j.version>1.7.5</slf4j.version>
+    	<logback.version>1.0.13</logback.version>
+	</properties>	
+	<dependencies>
+	
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>1.7.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.7.4</version>
+		</dependency>
+            		
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-lang</groupId>
+		    <artifactId>commons-lang</artifactId>
+		    <version>20030203.000129</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>1.2.16</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>jcl-over-slf4j</artifactId>
+		    <version>${slf4j.version}</version>		    
+		</dependency>
+		
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>${logback.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-core</artifactId>
+		    <version>${logback.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-access</artifactId>
+		    <version>${logback.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>2.11.0</version>
+			<exclusions>
+		      <exclusion> 
+		        <groupId>org.slf4j</groupId>
+		        <artifactId>slf4j-log4j12</artifactId>
+		      </exclusion>
+		     </exclusions>
+		</dependency>
+            		
+	</dependencies>
+	
+	
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+ 
+		</plugins>
+	</build> 
+</project>
