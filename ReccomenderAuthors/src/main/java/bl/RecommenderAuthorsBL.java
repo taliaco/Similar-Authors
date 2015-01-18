@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import dal.DataBase_API;
 
-public class ReccomenderAuthorsBL {
-	public ArrayList<String> getBooksAuthors(){
+public class RecommenderAuthorsBL {
+	public ArrayList<String> getAuthors(){
 		DataBase_API db = new DataBase_API("dba", "dba", "localhost", "1111", "http://hujilinkeddata/");
 		String sql = "SELECT DISTINCT ?creator "
 				+ "WHERE { "

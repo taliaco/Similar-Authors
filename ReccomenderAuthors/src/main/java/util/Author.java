@@ -2,33 +2,34 @@ package util;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
-import bl.ReccomenderAuthorsBL;
+import bl.RecommenderAuthorsBL;
 
 public class Author {
 	private String _name;
 	private ArrayList<Topic> _topics;
-	private ReccomenderAuthorsBL bl = new ReccomenderAuthorsBL();
+	
 	public Author(String name){
-		ArrayList<String> tmpTopic = bl.getAuthorsSubjects(name);
 		_name = name;
-		_topics =  createTopicList(tmpTopic);
+		_topics =  createTopicList();
 	}
 	
-	private ArrayList<Topic> createTopicList (ArrayList<String> tmpTopic){
+	private ArrayList<Topic> createTopicList (){
+		RecommenderAuthorsBL bl = new RecommenderAuthorsBL();
+		
+		ArrayList<String> fullTopics = bl.getAuthorsSubjects(_name);
 		ArrayList<Topic> list = new ArrayList<Topic>();
 		boolean exist = false;
-		for(int i=0; i<tmpTopic.size(); i++){
+		for(int i=0; i<fullTopics.size(); i++){
 			exist = false;
 			for( int j=0; j<list.size(); j++){
-				if(tmpTopic.get(i).equals(list.get(j).getTopic())){
+				if(fullTopics.get(i).equals(list.get(j).getTopic())){
 					list.get(j).addWeight(1);
 					exist=true;
 				}
 			}
 			if(!exist){
-				list.add(new Topic(tmpTopic.get(i)));
+				list.add(new Topic(fullTopics.get(i)));
 				
 			}
 		}
@@ -37,14 +38,16 @@ public class Author {
 				return t2.getWeight()-t1.getWeight();
 			}
 		});
+		
 		return list;
 	}
 	@Override
 	public String toString(){
-		String str = "Author: " + _name +".\nTopics:\n";
-		for(int i=0; i<_topics.size(); i++){
-			str+= _topics.get(i).toString() +"\n";
-		}
+		String str = "Author: " + _name;
+//		str+=".\nTopics:\n";
+//		for(int i=0; i<_topics.size(); i++){
+//			str+= _topics.get(i).toString() +"\n";
+//		}
 		return  str;
 	}
 	
@@ -58,6 +61,14 @@ public class Author {
 
 	public ArrayList<Topic> getTopics() {
 		return _topics;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (_name.equals(((Author)obj).getName()) && _topics.equals(((Author)obj).getTopics())){
+			return true;
+		}
+		return false;
 	}
 
 	public void setTopics(ArrayList<Topic> topics) {

@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 
-import bl.ReccomenderAuthorsBL;
+import recommendation.makeRecommendation;
+import bl.RecommenderAuthorsBL;
 public class Main {
-	private static ReccomenderAuthorsBL bl = new ReccomenderAuthorsBL();
+	private static RecommenderAuthorsBL bl = new RecommenderAuthorsBL();
 	
 	
 	public static void main(String[] args) {
@@ -19,21 +20,24 @@ public class Main {
 			usage();
 			return;
 		}
+		ArrayList<String> authorsNames = bl.getAuthors();
+		ArrayList<recommendAuthor> topAuthors = new ArrayList<recommendAuthor>();
+		ArrayList<Author> authors = new ArrayList<Author>();
 		String name = args[0].trim();
-//		ArrayList<Author> authors = new ArrayList<Author>();
-//		ArrayList<String> authorsNames = bl.getBooksAuthors();
 		Author a = new Author(name);
+		
+		/** create author list*/
+		for(int i = 0; i < authorsNames.size(); i++){
+			authors.add(new Author(authorsNames.get(i)));
+		}
+		/** create recommender top list*/
+		topAuthors = makeRecommendation.topMatches(authors, a, 5);
+		/** print the top list*/
 		System.out.println(a);
-//		for(int i = 0; i < authorsNames.size(); i++){
-//			authors.add(new Author(authorsNames.get(i)));
-//		}
-//		authors.sort(new Comparator<Author>(){
-//			public int compare(Author a1, Author a2) {
-//				return a1.getName().compareTo(a2.getName());
-//			}
-//		});
-//		
-//		System.out.println(authors.get(45));
+		System.out.println();
+		for(int i=0; i<topAuthors.size(); i++){
+			System.out.println(topAuthors.get(i));
+		}
 
 	}
 

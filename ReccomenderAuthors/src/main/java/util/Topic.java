@@ -24,6 +24,13 @@ public class Topic {
 	public String toString(){
 		return "Topic: " + _topic +". Weight: " + _weight;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj.getClass().equals(getClass()))
+			return _topic.equals(((Topic)obj).getTopic());
+		return super.equals(obj);
+	}
 	
 	
 }
