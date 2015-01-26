@@ -3,6 +3,7 @@ package dal;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import virtuoso.jena.driver.VirtGraph;
 import virtuoso.jena.driver.VirtuosoQueryExecution;
 import virtuoso.jena.driver.VirtuosoQueryExecutionFactory;
@@ -59,14 +60,7 @@ public class DataBase_API {
 	}
 	
 	public ArrayList<String> getAuthors(String sparqlQry) {
-		if(sparqlQry == null || sparqlQry.isEmpty())
-		{
-			return null;
-		}
-
-		Query sparql = QueryFactory.create(sparqlQry);
-		VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create (sparql, this.graph);
-		ResultSet results = vqe.execSelect();
+		ResultSet results = getQuery(sparqlQry);
 		ArrayList<String> resultArr = new ArrayList<String>();
         while (results.hasNext()) {
             QuerySolution rs = results.nextSolution();
@@ -74,15 +68,9 @@ public class DataBase_API {
         }
 		return resultArr;
 	}
+	
 	public ArrayList<String> getTopics(String sparqlQry){
-		if(sparqlQry == null || sparqlQry.isEmpty())
-		{
-			return null;
-		}
-
-		Query sparql = QueryFactory.create(sparqlQry);
-		VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create (sparql, this.graph);
-		ResultSet results = vqe.execSelect();
+		ResultSet results = getQuery(sparqlQry);
 		ArrayList<String> resultArr = new ArrayList<String>();
         while (results.hasNext()) {
             QuerySolution rs = results.nextSolution(); 
@@ -90,6 +78,32 @@ public class DataBase_API {
         }
 		return resultArr;
 	}
+
+	public ArrayList<String> getTopicsByBooks(String sql) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ResultSet getBooksByAuthor(String sparqlQry) {
+		ResultSet results = getQuery(sparqlQry);
+		return results;
+//		ArrayList<String> resultArr = new ArrayList<String>();
+//        while (results.hasNext()) {
+//            QuerySolution rs = results.nextSolution(); 
+//            resultArr.add(rs.get("title").toString());
+//        }
+//		return resultArr;
+	}
 	
+	public ResultSet getQuery(String sparqlQry){
+		if(sparqlQry == null || sparqlQry.isEmpty())
+		{
+			return null;
+		}
+
+		Query sparql = QueryFactory.create(sparqlQry);
+		VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create (sparql, this.graph);
+		return vqe.execSelect();
+	}
 	
 }

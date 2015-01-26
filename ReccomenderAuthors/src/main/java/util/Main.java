@@ -1,18 +1,14 @@
 package util;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 
 import recommendation.makeRecommendation;
+import recommendation.recommendAuthor;
+import Authors.Author;
 import bl.RecommenderAuthorsBL;
 public class Main {
 	private static RecommenderAuthorsBL bl = new RecommenderAuthorsBL();
-	
+	public static boolean WITH_WEIGHT = true;
 	
 	public static void main(String[] args) {
 		if(args.length != 1)
@@ -20,7 +16,7 @@ public class Main {
 			usage();
 			return;
 		}
-		ArrayList<String> authorsNames = bl.getAuthors();
+		ArrayList<String> authorsNames = bl.getAllAuthors();
 		ArrayList<recommendAuthor> topAuthors = new ArrayList<recommendAuthor>();
 		ArrayList<Author> authors = new ArrayList<Author>();
 		String name = args[0].trim();
@@ -30,6 +26,8 @@ public class Main {
 		for(int i = 0; i < authorsNames.size(); i++){
 			authors.add(new Author(authorsNames.get(i)));
 		}
+		
+//		System.out.println(authors);
 		/** create recommender top list*/
 		topAuthors = makeRecommendation.topMatches(authors, a, 5);
 		/** print the top list*/

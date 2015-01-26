@@ -1,4 +1,6 @@
-package util;
+package recommendation;
+
+import Authors.Author;
 
 public class recommendAuthor {
 	private Author _author;
