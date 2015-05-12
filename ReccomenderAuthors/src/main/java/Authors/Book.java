@@ -3,55 +3,94 @@ package Authors;
 import java.util.ArrayList;
 
 public class Book {
-	private String _name;
-	private ArrayList<String> _topicList;
+	private String _bookName;
+	private ArrayList<TopicWeight> _bookTopicList;
+	
+	public Book(){
+		_bookName = "";
+		_bookTopicList = new ArrayList<TopicWeight>();
+	}
+	public Book( Book book){
+		_bookName = book.getBookName();
+		_bookTopicList = book.getBookTopics();
+	}
 	
 	public Book(String name){
-		_name = name;
-		_topicList = new ArrayList<String>();
-	}
-	public Book(String name,String topic){
-		_name = name;
-		_topicList = new ArrayList<String>();
-		_topicList.add(topic);
-	}
-	public Book(String name, ArrayList<String> topics){
-		_name = name;
-		_topicList = topics;
+		_bookName = name;
+		_bookTopicList = new ArrayList<TopicWeight>();
 	}
 	
-	public String getName() {
-		return _name;
+	public Book(String name, ArrayList<TopicWeight> topics){
+		_bookName = name;
+		_bookTopicList = new ArrayList<TopicWeight>();
+		for (int i=0; i< topics.size(); i++){
+			_bookTopicList.add(new TopicWeight(topics.get(i)));
+		}
 	}
-	public int getWeight() {
-		return _topicList.size();
+	
+	public void addBookTopic(String topicName){
+		if (!isTopicExist(topicName))
+		{
+			_bookTopicList.add(new TopicWeight(topicName));
+		}
 	}
-	public ArrayList<String> getTopics() {
-		return _topicList;
+	
+	public void addBookTopic(TopicWeight topic){
+		if (!isTopicExist(topic.getTopicName()))
+		{
+			_bookTopicList.add(new TopicWeight(topic));
+		}
+	}
+	public void setBookTopic(ArrayList<TopicWeight> topics){
+		_bookTopicList = new ArrayList<TopicWeight>();
+		for (int i=0; i< topics.size(); i++){
+			_bookTopicList.add(new TopicWeight(topics.get(i)));
+		}
+	}
+	
+	public String getBookName() {
+		return _bookName;
+	}
+	
+	public ArrayList<TopicWeight> getBookTopics() {
+		ArrayList<TopicWeight> toReturn = new ArrayList<TopicWeight>();
+		for (int i=0; i< _bookTopicList.size(); i++){
+			toReturn.add(new TopicWeight(_bookTopicList.get(i)));
+		}
+		return toReturn;
 	}
 	
 	/**---------------------------------------------------------------------------------------
-	 * addTopic
+	 * isTopicExist
 	 * @return
-	 * 			if this is a new topic then add to the topic list
+	 * 			return if this is a new topic
 	 * ---------------------------------------------------------------------------------------
 	 */
-	public void addTopic(String topic){
+	public boolean isTopicExist(String topic){
 		boolean exist = false;
-		for( int j=0; j<_topicList.size(); j++){
-			if(topic.equals(_topicList.get(j))){
+		for( int j=0; j<_bookTopicList.size(); j++){
+			if(topic.equals(_bookTopicList.get(j))){
 				exist=true;
 			}
 		}
-		if(!exist){
-			_topicList.add(topic);
-		}
+		return exist;
 	}
 	
-	
+	/**---------------------------------------------------------------------------------------
+	 * equals
+	 * @return
+	 * 			true if the name of the book is equals, ignore topics.
+	 * ---------------------------------------------------------------------------------------
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj.getClass().equals(getClass()))
+			return _bookName.equals(((Book)obj).getBookName());
+		return super.equals(obj);
+	}
 	@Override
 	public String toString(){
-		String str = "\t" + _name+"\n";
+		String str = "\t" + _bookName+"\n";
 //		str+=".\nTopics:\n";
 //		for(int i=0; i<_topicsName.size(); i++){
 //			str+= "\t\t\t" + _topicsName.get(i).toString() +"\n";

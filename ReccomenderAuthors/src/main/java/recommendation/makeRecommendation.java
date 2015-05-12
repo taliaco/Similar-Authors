@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import Authors.Author;
-import Authors.Topic;
+import Authors.TopicWeight;
 
 public class makeRecommendation {
 	/** calculate recommender score between two authors*/
 	public static double similarTopics (Author A1, Author A2){
 		ArrayList<Double> si = new ArrayList<Double>();
-		Topic t1, t2;
+		TopicWeight t1, t2;
 		double sum = 0;
 		boolean exist = false;
 		int tmp=0;
@@ -37,13 +37,13 @@ public class makeRecommendation {
 			for(int j=0; j<A2.getTopics().size(); j++){
 				t2 = A2.getTopics().get(j);
 				if(t2.equals(t1)){
-					double num = t1.getWeight()-t2.getWeight();
+					double num = t1.getTopicWeight()-t2.getTopicWeight();
 					si.add(Math.pow(num,2));
 					exist = true;
 				}				
 			}
 			if(!exist){
-				double num = t1.getWeight();
+				double num = t1.getTopicWeight();
 				si.add(Math.pow(num,2));
 			}
 		}
@@ -89,4 +89,5 @@ public class makeRecommendation {
 		}
 		return topList;
 	}
+	
 }
