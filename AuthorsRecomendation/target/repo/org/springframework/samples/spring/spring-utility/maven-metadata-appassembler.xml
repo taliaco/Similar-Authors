@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.springframework.samples.spring</groupId>
+  <artifactId>spring-utility</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0.0.CI-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20150517145151</lastUpdated>
+  </versioning>
+</metadata>

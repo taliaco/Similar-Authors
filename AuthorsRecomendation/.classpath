@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/commons-codec-1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/jsoup-1.7.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/marc4j-2.6.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/string-similarity-1.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/virtjdbc3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/virt_jena2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/virt_jena.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/Dropbox/שנה ד/פרוייקט גמר/AuthorsRecomendation/lib/virtjdbc4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
