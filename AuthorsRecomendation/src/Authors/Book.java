@@ -1,8 +1,16 @@
 package Authors;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Book {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+@Entity
+public class Book implements Serializable{
+	private static final long serialVersionUID = 1L;
+	@Id @GeneratedValue
+    Long id;
 	private String _bookName;
 	private ArrayList<TopicWeight> _bookTopicList;
 	

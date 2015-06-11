@@ -1,10 +1,25 @@
 package Authors;
 
 import java.util.ArrayList;
+
+
 import Authors.Author;
 import Authors.TopicWeight;
-
-public class recommendAuthor implements Comparable<recommendAuthor> {
+import net.ricecode.similarity.JaroWinklerStrategy;
+import net.ricecode.similarity.SimilarityStrategy;
+import net.ricecode.similarity.StringSimilarityService;
+import net.ricecode.similarity.StringSimilarityServiceImpl;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+ 
+@Entity
+public class recommendAuthor implements Serializable{//Comparable<recommendAuthor> {
+	private static final long serialVersionUID = 1L;
+	// Persistent Fields:
+    @Id @GeneratedValue
+    Long id;
 	private Author _author;
 	private double _TF;
 	private ArrayList<TopicWeight> _authorTopicsVec;
@@ -13,6 +28,7 @@ public class recommendAuthor implements Comparable<recommendAuthor> {
 	public recommendAuthor (Author a, double s){
 		_author = a;
 		_TF = 0;
+		_authorTopicsVec = new ArrayList<TopicWeight>();
 		_score = s;
 	}
 	public recommendAuthor (Author a, ArrayList<Author> authorsList){
@@ -20,14 +36,24 @@ public class recommendAuthor implements Comparable<recommendAuthor> {
 		_authorTopicsVec = createTopicVecWithCounter();
 		_TF = TF(_authorTopicsVec);
 		_authorTopicsVec = TFIDF(_authorTopicsVec, authorsList);
+		_score = 0;
 	}
-
+	public recommendAuthor (recommendAuthor a){
+		_author = new Author(a.getAuthor());
+		_TF = a.getTF();
+		_authorTopicsVec = new ArrayList<TopicWeight>(a.getAuthorTopicsVec());
+		_score = a.getScore();
+	}
+	
 	public Author getAuthor() {
 		return _author;
 	}
 
 	public double getScore() {
 		return _score;
+	}
+	public double getTF() {
+		return _TF;
 	}
 	public  ArrayList<TopicWeight> getAuthorTopicsVec() {
 		ArrayList<TopicWeight> toReturn = new ArrayList<TopicWeight>();
@@ -36,7 +62,7 @@ public class recommendAuthor implements Comparable<recommendAuthor> {
 		}
 		return toReturn;
 	}
-
+	
 	//1 - count topics
 	public ArrayList<TopicWeight> createTopicVecWithCounter(){
 		ArrayList<TopicWeight> list = new ArrayList<TopicWeight>();
@@ -139,6 +165,14 @@ public class recommendAuthor implements Comparable<recommendAuthor> {
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		SimilarityStrategy strategy = new JaroWinklerStrategy();
+		StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
+		double score = service.score(_author.getName(), ((recommendAuthor)obj).getAuthor().getName()); // Score is 0.90
+		System.out.println(_author.getName()+ " - "+((recommendAuthor)obj).getAuthor().getName()+": "+ score);
+//		if(score>0.8){
+//			
+//			return true;
+//		}
 		if (_author.equals(((recommendAuthor)obj).getAuthor())){
 			return true;
 		}

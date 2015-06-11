@@ -16,7 +16,20 @@
 		<servlet-name>makeRecommendation</servlet-name>
 		<url-pattern>/makeRecommendation</url-pattern>
 	</servlet-mapping>
-
-	
-	
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>
+			30
+		</session-timeout>
+	</session-config>
 </web-app>

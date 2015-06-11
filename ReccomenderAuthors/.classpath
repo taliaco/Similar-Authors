@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="lib/commons-codec-1.8.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://commons.apache.org/proper/commons-codec/archives/1.8/apidocs/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jsoup-1.7.3.jar"/>
-	<classpathentry kind="lib" path="lib/marc4j-2.6.3.jar"/>
-	<classpathentry kind="lib" path="lib/string-similarity-1.0.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
@@ -31,7 +23,21 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/virt_jena2.jar"/>
-	<classpathentry kind="lib" path="lib/virtjdbc4.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/apache-tomcat-7.0.61/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/apache-tomcat-7.0.61/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/git/final-project-linked-data/ReccomenderAuthors/lib/virtjdbc3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/git/final-project-linked-data/ReccomenderAuthors/lib/virt_jena2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/git/final-project-linked-data/ReccomenderAuthors/lib/commons-codec-1.8.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://commons.apache.org/proper/commons-codec/archives/1.8/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Talia/git/final-project-linked-data/ReccomenderAuthors/lib/jsoup-1.7.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/git/final-project-linked-data/ReccomenderAuthors/lib/marc4j-2.6.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/git/final-project-linked-data/ReccomenderAuthors/lib/virt_jena.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/git/final-project-linked-data/ReccomenderAuthors/lib/string-similarity-1.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Talia/git/final-project-linked-data/ReccomenderAuthors/lib/virtjdbc4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

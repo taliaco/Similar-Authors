@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.ricecode.similarity.JaroWinklerStrategy;
+import net.ricecode.similarity.SimilarityStrategy;
+import net.ricecode.similarity.StringSimilarityService;
+import net.ricecode.similarity.StringSimilarityServiceImpl;
 import util.Main;
 import Authors.Author;
-
 import Authors.recommendAuthor;
 @WebServlet("/makeRecommendation")
 public class makeRecommendation extends HttpServlet {
@@ -30,20 +33,17 @@ public class makeRecommendation extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		Object nameObj = request.getParameter("name");
 		String name = nameObj.toString();
-//		System.out.println(name);
 		String str="";
 		if(name !=null)
 		{
-			Author a = new Author(name);
-			recommendAuthor a1 = new recommendAuthor(a, Main.authors);
-			int index = Main.topAuthors.indexOf(a1);
+			int index = getIndexMostSimilar(name);
 			if (index < 0)
 			{
 				response.getWriter().write("0");
 				return;
 			}
-			a1 = Main.topAuthors.get(index);
-//			System.out.println(a1);
+			recommendAuthor a1 = Main.topAuthors.get(index);
+			str+= a1.getAuthor().getName()+"* *";
 			for(int i = 0; i < Main.topAuthors.size(); i++){
 				Main.topAuthors.get(i).cosineSimilarity(a1);
 			}
@@ -63,5 +63,24 @@ public class makeRecommendation extends HttpServlet {
 		else
 			response.getWriter().write("0");
 	}
-
+	
+	public int getIndexMostSimilar(String name){
+		SimilarityStrategy strategy = new JaroWinklerStrategy();
+		StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
+		double score = 0; 
+		int index=-1;
+		double maxScore=0;
+		for(int i=0; i<Main.topAuthors.size(); i++){
+			score = service.score(name, Main.topAuthors.get(i).getAuthor().getName().replaceAll("[0-9]",""));
+			if (score>maxScore){
+				maxScore = score;
+				index =i;
+			}
+		}
+		System.out.println(maxScore +" " + Main.topAuthors.get(index).getAuthor().getName());
+		if (maxScore > 0.7)
+			return index;
+		return -1;
+		
+	}
 }

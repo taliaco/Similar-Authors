@@ -1,21 +1,34 @@
 package Authors;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 
 import bl.RecommenderAuthorsBL;
-
-public class Author {
+@Entity
+public class Author implements Serializable{
+	private static final long serialVersionUID = 1L;
+	@Id @GeneratedValue
+    Long id;
 	private String _name;
 	private ArrayList<Book> _authorBooks;
-	private ArrayList<TopicWeight> _authorTopicsVec;
+	//private ArrayList<TopicWeight> _authorTopicsVec;
 
 	public Author(String name){
 //		System.out.println(name);
 		_name = name;
 		_authorBooks = createBookList();
+	}
+	public Author(Author a){
+//		System.out.println(name);
+		_name = a.getName();
+		_authorBooks = new ArrayList<Book>(a.getBookList());
 	}
 	public Author(String name, Book book){
 //		System.out.println(name);
@@ -23,6 +36,10 @@ public class Author {
 		if (book != null){
 			_authorBooks = new ArrayList<Book>();
 			_authorBooks.add(book);			
+		}
+		else
+		{
+			_authorBooks = new ArrayList<Book>();
 		}
 	}
 	/**---------------------------------------------------------------------------------------
@@ -118,15 +135,15 @@ public class Author {
 		if (_name.equals(((Author)obj).getName())){
 			return true;
 		}
-		if (_name.equals(((Author)obj).getName()) && _authorTopicsVec.equals(((Author)obj).getTopics())){
-			return true;
-		}
+//		if (_name.equals(((Author)obj).getName()) && _authorTopicsVec.equals(((Author)obj).getTopics())){
+//			return true;
+//		}
 		return false;
 	}
 
-	public void setTopics(ArrayList<TopicWeight> topics) {
-		_authorTopicsVec = topics;
-	}
+//	public void setTopics(ArrayList<TopicWeight> topics) {
+//		_authorTopicsVec = topics;
+//	}
 	public ArrayList<Book> getBookList(){
 		ArrayList<Book> toReturn = new ArrayList<Book>();
 		for (int i=0; i< _authorBooks.size(); i++){

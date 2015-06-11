@@ -1,7 +1,16 @@
 package Authors;
 
+import java.io.Serializable;
 
-public class TopicWeight {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class TopicWeight implements Serializable{
+	private static final long serialVersionUID = 1L;
+	@Id @GeneratedValue
+    Long id;
 	private String _topicName;
 	private double _topicWeight;
 	

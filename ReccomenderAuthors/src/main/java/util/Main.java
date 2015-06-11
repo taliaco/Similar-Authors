@@ -1,9 +1,6 @@
 package util;
 
-import java.sql.Time;
 import java.util.ArrayList;
-
-import recommendation.makeRecommendation;
 import recommendation.recommendAuthor;
 import Authors.Author;
 import bl.RecommenderAuthorsBL;
@@ -12,6 +9,7 @@ public class Main {
 	public static boolean WITH_WEIGHT = true;
 	
 	public static void main(String[] args) {
+		
 		if(args.length != 1)
 		{
 			usage();

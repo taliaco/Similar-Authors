@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.objectdb</groupId>
+  <artifactId>objectdb</artifactId>
+  <versioning>
+    <release>2.6.2_02</release>
+    <versions>
+      <version>2.6.2_02</version>
+    </versions>
+    <lastUpdated>20150609122913</lastUpdated>
+  </versioning>
+</metadata>
