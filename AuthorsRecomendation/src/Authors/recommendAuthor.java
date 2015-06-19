@@ -15,7 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
  
 @Entity
-public class recommendAuthor implements Serializable{//Comparable<recommendAuthor> {
+public class recommendAuthor implements Comparable<recommendAuthor>{// Serializable{
 	private static final long serialVersionUID = 1L;
 	// Persistent Fields:
     @Id @GeneratedValue

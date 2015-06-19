@@ -1,0 +1,38 @@
+@CHARSET "utf-8";
+
+body {
+	background: silver;
+}
+
+#mainContent {
+	position: relative;
+	width: 100%;
+}
+
+h1 {
+	text-align: center;
+	color: red;
+}
+
+#search {
+	text-align: center;
+}
+
+#result {
+	margin: 0 auto; width : 60%;
+	text-align: left;
+	width: 60%;
+}
+
+table, th, td {
+	border: 3px solid black;
+	border-color: white;
+	vertical-align: top;
+	border-collapse: collapse;
+}
+
+tr > td:first-child,tr > th:first-child {
+	color: maroon;
+	font-weight: bold;
+}
+

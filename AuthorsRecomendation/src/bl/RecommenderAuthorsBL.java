@@ -13,8 +13,14 @@ import com.hp.hpl.jena.query.ResultSet;
 import dal.DataBase_API;
 
 public class RecommenderAuthorsBL {
+	String username = "dba"; 
+	String password = "dba";
+	String hostname ="localhost";
+	String port = "1111";
+	String graphName = "http://wwu_bibs/";
+	//	String graphName = "http://hujilinkeddata/";
 	public ArrayList<String> getAllAuthors(){
-		DataBase_API db = new DataBase_API("dba", "dba", "localhost", "1111", "http://hujilinkeddata/");
+		DataBase_API db = new DataBase_API(username, password, hostname, port, graphName);
 		//		String sql = "SELECT DISTINCT ?creator "
 		//				+ "WHERE { "
 		//				+ "?s <http://purl.org/dc/terms/type> 'book'. "
@@ -39,7 +45,7 @@ public class RecommenderAuthorsBL {
 	}
 
 	public ArrayList<String> getAuthorsSubjects (String creator){
-		DataBase_API db = new DataBase_API("dba", "dba", "localhost", "1111", "http://hujilinkeddata/");
+		DataBase_API db = new DataBase_API(username, password, hostname, port, graphName);
 		String sql = "SELECT ?topic "
 				+ "WHERE { " 
 				+ "?creatorID ?p '" + creator + "'. " 
@@ -49,7 +55,7 @@ public class RecommenderAuthorsBL {
 		return db.getTopics(sql);
 	}
 	public ResultSet getBooksByAuthor (String author){
-		DataBase_API db = new DataBase_API("dba", "dba", "localhost", "1111", "http://hujilinkeddata/");
+		DataBase_API db = new DataBase_API(username, password, hostname, port, graphName);
 		String sql = "SELECT DISTINCT ?title ?subject "
 				+ "WHERE { " 
 				+ "?creatorID ?p '" + author + "'. " 
@@ -63,7 +69,7 @@ public class RecommenderAuthorsBL {
 		return results;
 	}
 	public ArrayList<String> getTopicsByBook (String book){
-		DataBase_API db = new DataBase_API("dba", "dba", "localhost", "1111", "http://hujilinkeddata/");
+		DataBase_API db = new DataBase_API(username, password, hostname, port, graphName);
 		String sql = "SELECT ?topic "
 				+ "WHERE { " 
 				+ "?book ?p '" + book + "'. "
@@ -79,7 +85,7 @@ public class RecommenderAuthorsBL {
 	}
 	public ArrayList<Author> getAuthorsTitleSubject(){
 		long start = System.currentTimeMillis();
-		DataBase_API db = new DataBase_API("dba", "dba", "localhost", "1111", "http://hujilinkeddata/");
+		DataBase_API db = new DataBase_API(username, password, hostname, port, graphName);
 		String sql = "SELECT DISTINCT ?creator ?title ?topic "
 				+ "WHERE {  "
 				+ "?s <http://purl.org/dc/terms/type> <http://purl.org/dc/dcmitype/Text>. "
@@ -87,8 +93,8 @@ public class RecommenderAuthorsBL {
 				+ "?s <http://purl.org/dc/terms/title> ?title. "
 				+ "?s<http://purl.org/dc/terms/subject> ?topic. "
 				+ "?e <http://www.w3.org/2000/01/rdf-schema#label> ?creator "
-				+ "}"
-				+ "order by ?creator";
+				+ "}";
+		//+ "order by ?creator";
 
 		ResultSet results = db.getQuery(sql);
 		ArrayList<Author> resultArr = new ArrayList<Author>();
@@ -96,13 +102,13 @@ public class RecommenderAuthorsBL {
 		while (results.hasNext()) {
 			Main.COUNTER++;
 			QuerySolution rs = results.nextSolution();
-			
+
 			i = resultArr.size()-1;
 			if(i>-1 && resultArr.get(i).getName().equals(rs.get("creator").toString())){
 				Log.AddLog(rs.get("creator").toString());
 				j = resultArr.get(i).getBookList().size()-1;
 				if (j > -1 && resultArr.get(i).getBookList().get(j).getBookName().equals(rs.get("title").toString())){
-//					System.out.println(rs.get("title").toString());
+					//					System.out.println(rs.get("title").toString());
 					resultArr.get(i).addTopicToBook(j,rs.get("topic").toString());
 				}
 				else{
@@ -118,6 +124,27 @@ public class RecommenderAuthorsBL {
 		}
 		System.err.println("Total time build basic straucture: " + (System.currentTimeMillis() - start)/1000 + " seconds");
 		return resultArr;
+	}
+
+	public long getNumOfAuthors(){
+		DataBase_API db = new DataBase_API(username, password, hostname, port, graphName);
+		long numOfAuthor = -1;
+		String sql = "SELECT Count(DISTINCT ?creator) as ?countCreator " 
+				+ " WHERE {"  
+				+ " ?s <http://purl.org/dc/terms/type> <http://purl.org/dc/dcmitype/Text>." 
+				+ " ?s <http://purl.org/dc/terms/creator> ?e." 
+				+ " ?e <http://www.w3.org/2000/01/rdf-schema#label> ?creator" 
+				+ " }";
+		try{
+			ResultSet results = db.getQuery(sql);
+			QuerySolution rs = results.nextSolution();
+			numOfAuthor = Long.parseLong(rs.get("countCreator").toString());
+		}
+		catch(Exception e)
+		{
+			System.err.println("error - getNumOfAuthors");
+		}
+		return numOfAuthor;
 	}
 }
 

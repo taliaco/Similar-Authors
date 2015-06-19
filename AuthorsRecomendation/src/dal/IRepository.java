@@ -2,6 +2,7 @@ package dal;
 
 import java.util.Collection;
 
+
 import util.RDFTripleModel;
 
 public interface IRepository {
