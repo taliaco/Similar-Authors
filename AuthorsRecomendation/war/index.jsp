@@ -15,18 +15,34 @@
 </head>
 <body>
 	<div id="mainContent">
-		<h1>Recommendation Authors</h1>
+		<h1>Recommend on Similar Authors<br />
+Based on Linked Data in Library
+</h1>
 		<div id="search">
 			<input id="searchText" type="text" /> <br />
 			<button id="searchButton">Search</button>
 		</div>
-		</br>
-		</br>
-		<div id=tableResult>
-			<table style="width: 100%">
+		<br />
+		<br />
+		<div >
+			<table id=tableMainAuthor>
 				<thead>
 					<tr>
 						<th id="author0" colspan="2"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td id="topic00" nowrap></td>
+						<td id="topic01"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+			<br />
+			<table id=tableResult>
+				<thead>
+					<tr>
 						<th id="author1" colspan="2"></th>
 						<th id="author2" colspan="2"></th>
 						<th id="author3" colspan="2"></th>
@@ -36,7 +52,6 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td id="score0" colspan="2"></td>
 						<td id="score1" colspan="2"></td>
 						<td id="score2" colspan="2"></td>
 						<td id="score3" colspan="2"></td>
@@ -44,8 +59,6 @@
 						<td id="score5" colspan="2"></td>
 					</tr>
 					<tr>
-						<td id="topic00" nowrap></td>
-						<td id="topic01"></td>
 						<td id="topic10" nowrap></td>
 						<td id="topic11"></td>
 						<td id="topic20" nowrap></td>
@@ -60,7 +73,14 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="result"></div>
+		<br />
+		<br />
+		<hr />
+		<h3>Book List With Topics</h3>
+		<hr />
+		<div id="booksMainAuthor"></div>
+		<br />
+		<div id="booksResults"></div>
 	</div>
 </body>
 </html>

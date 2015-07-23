@@ -7,11 +7,15 @@ import java.util.ArrayList;
 import virtuoso.jena.driver.VirtGraph;
 import virtuoso.jena.driver.VirtuosoQueryExecution;
 import virtuoso.jena.driver.VirtuosoQueryExecutionFactory;
+import virtuoso.jena.driver.VirtuosoUpdateFactory;
+import virtuoso.jena.driver.VirtuosoUpdateRequest;
+import arq.sparql;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.Syntax;
 
 public class DataBase_API {
 	
@@ -93,10 +97,34 @@ public class DataBase_API {
 		{
 			return null;
 		}
-
-		Query sparql = QueryFactory.create(sparqlQry);
+		Query sparql = new Query();
+		try{
+		 sparql = QueryFactory.create(sparqlQry);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
 		VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create (sparql, this.graph);
+		
 		return vqe.execSelect();
+	}
+	public boolean deleteQuery(String sparqlQry){
+		if(sparqlQry == null || sparqlQry.isEmpty())
+		{
+			return false;
+		}
+//		Query sparql = new Query();
+		try{
+			VirtuosoUpdateRequest vur = VirtuosoUpdateFactory.create(sparqlQry,
+					this.graph);
+			vur.exec();
+//		 sparql = QueryFactory.create(sparqlQry);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+			return false;
+		}
+		return true;
 	}
 	
 }

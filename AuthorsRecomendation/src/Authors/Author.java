@@ -1,21 +1,14 @@
 package Authors;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 
 import bl.RecommenderAuthorsBL;
-@Entity
-public class Author implements Serializable{
-	private static final long serialVersionUID = 1L;
-	@Id @GeneratedValue
-    Long id;
+
+public class Author{
+
 	private String _name;
 	private ArrayList<Book> _authorBooks;
 	//private ArrayList<TopicWeight> _authorTopicsVec;

@@ -1,16 +1,8 @@
 package Authors;
 
-import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+public class TopicWeight {
 
-@Entity
-public class TopicWeight implements Serializable{
-	private static final long serialVersionUID = 1L;
-	@Id @GeneratedValue
-    Long id;
 	private String _topicName;
 	private double _topicWeight;
 	
@@ -42,7 +34,7 @@ public class TopicWeight implements Serializable{
 	@Override
 	public String toString(){
 //		return "Topic: " + _topicName +". Weight: " + _topicWeight;
-		return _topicName;
+		return _topicName + ":"+_topicWeight;
 	}
 	/**---------------------------------------------------------------------------------------
 	 * equals

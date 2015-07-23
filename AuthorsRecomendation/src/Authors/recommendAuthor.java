@@ -2,37 +2,55 @@ package Authors;
 
 import java.util.ArrayList;
 
-
 import Authors.Author;
 import Authors.TopicWeight;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
- 
-@Entity
-public class recommendAuthor implements Comparable<recommendAuthor>{// Serializable{
-	private static final long serialVersionUID = 1L;
-	// Persistent Fields:
-    @Id @GeneratedValue
-    Long id;
+
+import bl.RecommenderAuthorsBL;
+
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
+
+public class recommendAuthor implements Comparable<recommendAuthor>{
+
 	private Author _author;
+	private String _name;
+	private String _dcCreator;
+	private ArrayList<Book> _authorBooks;
 	private double _TF;
 	private ArrayList<TopicWeight> _authorTopicsVec;
 	private double _score;
 
+	
+	public recommendAuthor (String name, String dcCreator, double score, double tf, ArrayList<TopicWeight> authorTopicsVec){
+		_name = name;
+		_dcCreator = dcCreator;
+		_authorTopicsVec = new ArrayList<TopicWeight>(authorTopicsVec);
+		_TF = tf;
+		_score = score;
+		_authorBooks = new ArrayList<Book>();
+	}
+	public recommendAuthor (recommendAuthor a, Boolean createBookList){
+//		_author = new Author(a.getAuthor());
+		_name = a.getName();
+		_dcCreator = a.getDcCreator();
+		_authorTopicsVec = new ArrayList<TopicWeight>(a.getAuthorTopicsVec());
+		_TF = a.getTF();
+		_score = a.getScore();
+		_authorBooks = createBookList();
+	}
+	
 	public recommendAuthor (Author a, double s){
-		_author = a;
+		_author = new Author(a);
 		_TF = 0;
 		_authorTopicsVec = new ArrayList<TopicWeight>();
 		_score = s;
 	}
 	public recommendAuthor (Author a, ArrayList<Author> authorsList){
-		_author = a;
+		_author = new Author(a);
 		_authorTopicsVec = createTopicVecWithCounter();
 		_TF = TF(_authorTopicsVec);
 		_authorTopicsVec = TFIDF(_authorTopicsVec, authorsList);
@@ -43,6 +61,12 @@ public class recommendAuthor implements Comparable<recommendAuthor>{// Serializa
 		_TF = a.getTF();
 		_authorTopicsVec = new ArrayList<TopicWeight>(a.getAuthorTopicsVec());
 		_score = a.getScore();
+	}
+	public recommendAuthor (Author a, double s,ArrayList<TopicWeight> t){
+		_author = new Author(a);
+		_TF = 0;
+		_authorTopicsVec = new ArrayList<TopicWeight>(t);
+		_score = s;
 	}
 	
 	public Author getAuthor() {
@@ -55,7 +79,17 @@ public class recommendAuthor implements Comparable<recommendAuthor>{// Serializa
 	public double getTF() {
 		return _TF;
 	}
+	public String getName() {
+		return _name;
+	}
+	public String getDcCreator() {
+		return _dcCreator;
+	}
+	public void setScore(double score) {
+		_score = score;
+	}
 	public  ArrayList<TopicWeight> getAuthorTopicsVec() {
+		
 		ArrayList<TopicWeight> toReturn = new ArrayList<TopicWeight>();
 		for (int i=0; i< _authorTopicsVec.size(); i++){
 			toReturn.add(new TopicWeight(_authorTopicsVec.get(i)));
@@ -194,5 +228,25 @@ public class recommendAuthor implements Comparable<recommendAuthor>{// Serializa
 			return 1;
 		}
 	}
-	
+	private ArrayList<Book> createBookList (){
+		RecommenderAuthorsBL bl = new RecommenderAuthorsBL();
+		ResultSet allBooksByAuthorResult = bl.getBooksByAuthor(_dcCreator);
+		Book tmpBook;
+		String title, topic;
+		ArrayList<Book> list = new ArrayList<Book>();
+		while (allBooksByAuthorResult.hasNext()) {
+			QuerySolution rs = allBooksByAuthorResult.nextSolution();
+			title = rs.get("title").toString();
+			topic = rs.get("subject").toString();
+			tmpBook = new Book(title);
+			if(list.contains(tmpBook)){
+				list.get(list.indexOf(tmpBook)).addBookTopic(topic);
+			}
+			else{
+				tmpBook.addBookTopic(topic);
+				list.add(tmpBook);
+			}
+		}
+		return list;
+	}	
 }
